@@ -39,4 +39,4 @@ jobs:
         with:
           project: "antonkarmaz-telegram-po-81"
           entrypoint: "/"
-          root: "/"
+          root: ""
