@@ -8,6 +8,8 @@ export class BotService {
   private cronJobs = new Map<string, any>();
 
   constructor(@Inject('TELEGRAM_BOT') private bot: TelegramBot) {
+    console.log('Init bot service')
+
     // Обрабатываем команду /create_poll
     this.bot.onText(/\/create_poll (.+)/, (msg, match) => {
       const chatId = msg.chat.id;

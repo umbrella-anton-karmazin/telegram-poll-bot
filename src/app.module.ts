@@ -12,7 +12,7 @@ import { BotService } from './bot.service';
     {
       provide: 'TELEGRAM_BOT',
       useFactory: () => {
-        console.log(process.env.TELEGRAM_BOT_TOKEN)
+        console.log('Init tg bot with token: ' + process.env.TELEGRAM_BOT_TOKEN)
         const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, { polling: true });
         return bot;
       },
