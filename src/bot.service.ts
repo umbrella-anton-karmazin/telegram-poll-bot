@@ -10,6 +10,10 @@ export class BotService {
   constructor(@Inject('TELEGRAM_BOT') private bot: TelegramBot) {
     console.log('Init bot service')
 
+    this.bot.sendPoll(-1002255381974, '1', ['2', '3'], {
+      is_anonymous: false,  // Указываем, что опрос неанонимный
+    });
+/*
     // Обрабатываем команду /create_poll
     this.bot.onText(/\/create_poll (.+)/, (msg, match) => {
       const chatId = msg.chat.id;
@@ -33,6 +37,7 @@ export class BotService {
         this.bot.sendMessage(chatId, 'Ошибка в расписании. Пожалуйста, используйте корректное cron-расписание.');
       }
     });
+ */
   }
 
   // Метод для планирования опроса по расписанию
@@ -46,7 +51,7 @@ export class BotService {
     const job = cron.schedule(cronTime, () => {
       try {
         console.log('Отправлен опрос для chat id:' + chatId)
-        this.bot.sendPoll(chatId, question, options, {
+        this.bot.sendPoll(-1002255381974, '1', ['2', '3'], {
           is_anonymous: false,  // Указываем, что опрос неанонимный
         });
       } catch (e) {
