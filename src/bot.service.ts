@@ -10,10 +10,6 @@ export class BotService {
   constructor(@Inject('TELEGRAM_BOT') private bot: TelegramBot) {
     console.log('Init bot service')
 
-    this.bot.sendPoll(-1002255381974, '1', ['2', '3'], {
-      is_anonymous: false,  // Указываем, что опрос неанонимный
-    });
-/*
     // Обрабатываем команду /create_poll
     this.bot.onText(/\/create_poll (.+)/, (msg, match) => {
       const chatId = msg.chat.id;
@@ -32,12 +28,11 @@ export class BotService {
         // Парсим расписание и устанавливаем cron-задачу
         this.schedulePoll(String(chatId), title, options, schedule);
         this.bot.sendMessage(chatId, `Опрос "${title}" будет публиковаться по расписанию: ${schedule}`);
-        console.log('Создан опрос для chat id:' + chatId)
+        console.log('Создан опрос для chat id:' + chatId + ' с расписанием ' + schedule)
       } catch (error) {
         this.bot.sendMessage(chatId, 'Ошибка в расписании. Пожалуйста, используйте корректное cron-расписание.');
       }
     });
- */
   }
 
   // Метод для планирования опроса по расписанию
