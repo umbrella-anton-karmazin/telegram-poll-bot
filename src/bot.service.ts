@@ -28,6 +28,7 @@ export class BotService {
         // Парсим расписание и устанавливаем cron-задачу
         this.schedulePoll(String(chatId), title, options, schedule);
         this.bot.sendMessage(chatId, `Опрос "${title}" будет публиковаться по расписанию: ${schedule}`);
+        console.log('Создан опрос для chat id:' + chatId)
       } catch (error) {
         this.bot.sendMessage(chatId, 'Ошибка в расписании. Пожалуйста, используйте корректное cron-расписание.');
       }
@@ -43,9 +44,15 @@ export class BotService {
 
     // Устанавливаем новую cron-задачу
     const job = cron.schedule(cronTime, () => {
-      this.bot.sendPoll(chatId, question, options, {
-        is_anonymous: false,  // Указываем, что опрос неанонимный
-      });
+      try {
+        console.log('Отправлен опрос для chat id:' + chatId)
+        this.bot.sendPoll(chatId, question, options, {
+          is_anonymous: false,  // Указываем, что опрос неанонимный
+        });
+      } catch (e) {
+        console.log('Ошибка отправки опроса для chat id:' + chatId + '. Ошибка: ' + e)
+      }
+
     });
 
     this.cronJobs.set(chatId, job); // Сохраняем задачу для чата
